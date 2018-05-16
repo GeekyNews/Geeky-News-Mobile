@@ -14,6 +14,10 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   TabController _tabController;
   var _stories = List<HackerNewsItem>();
+  var _isRefreshing = false;
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -34,11 +38,23 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
           title: Text("Geeky News"),
           elevation: 0.7,
           actions: <Widget>[
-
+            new IconButton(
+                icon: const Icon(Icons.refresh),
+                tooltip: 'Refresh',
+                onPressed: () {
+                  _refreshIndicatorKey.currentState.show();
+                }
+            ),
           ],
         ),
         body:
-        _buildList()
+//        _buildList(),
+        RefreshIndicator(
+            key: _refreshIndicatorKey,
+            onRefresh: _handleRefresh,
+            child: _buildList(),
+
+        )
     );
   }
 
@@ -48,9 +64,9 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
       itemBuilder: (context, index) {
         final story = _stories[index];
 
-        if (index == _stories.length - 1) {
-          _getTopList();
-        }
+//        if (index == _stories.length - 1) {
+//          _getTopList();
+//        }
         return _buildRow(story);
       },
     );
@@ -58,7 +74,6 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   Widget _buildRow(HackerNewsItem story) {
     DateTime date = new DateTime.fromMillisecondsSinceEpoch(story.time * 1000);
-    print(date);
     final subTitle = story.author + " - " + timeAgo(date) ;
 
 
@@ -90,20 +105,36 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
+  Future<Null> _getTopList() async {
+    this.setState(() {
+      this._isRefreshing = true;
+    });
 
-  _getTopList() async {
     try {
       final api = HackerNewsProvider();
       final list = await api.getHotNews()
-          .then((ids) => ids.take(10)
+          .then((ids) => ids.take(20)
           .map ((id) async => await api.getItem(id)));
 
       List<HackerNewsItem> items = await Future.wait(list);
+      print(items);
       setState(() {
         this._stories.addAll(items);
+        this._isRefreshing = false;
       });
+      return null;
     } catch (e) {
       print(e);
+      this._isRefreshing = false;
+      return null;
     }
+  }
+
+  Future<Null> _handleRefresh() async {
+      this.setState(() {
+        this._stories.clear();
+      });
+
+      return this._getTopList();
   }
 }
