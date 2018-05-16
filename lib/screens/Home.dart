@@ -5,16 +5,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:geeky_news_mobile/services/HackerNewsProvider.dart';
 import 'package:geeky_news_mobile/models/HackerNewsItem.dart';
 import 'package:timeago/timeago.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-class Home extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => HomeState();
+  State<StatefulWidget> createState() => HomeScreenState();
 }
 
-class HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   TabController _tabController;
   var _stories = List<HackerNewsItem>();
-  var _isRefreshing = false;
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -48,7 +48,6 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
           ],
         ),
         body:
-//        _buildList(),
         RefreshIndicator(
             key: _refreshIndicatorKey,
             onRefresh: _handleRefresh,
@@ -62,19 +61,19 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
     return  ListView.builder(
       itemCount: _stories.length,
       itemBuilder: (context, index) {
-        final story = _stories[index];
+        final item = _stories[index];
 
 //        if (index == _stories.length - 1) {
 //          _getTopList();
 //        }
-        return _buildRow(story);
+        return _buildRow(item);
       },
     );
   }
 
-  Widget _buildRow(HackerNewsItem story) {
-    DateTime date = new DateTime.fromMillisecondsSinceEpoch(story.time * 1000);
-    final subTitle = story.author + " - " + timeAgo(date) ;
+  Widget _buildRow(HackerNewsItem item) {
+    DateTime date = new DateTime.fromMillisecondsSinceEpoch(item.time * 1000);
+    final subTitle = item.author + " - " + timeAgo(date) ;
 
 
     return Container(
@@ -86,17 +85,19 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
 //                  "https://scontent.fsgn5-2.fna.fbcdn.net/v/t1.0-1/p480x480/31706598_1727513840671187_8718130024231731200_n.png?_nc_cat=0&oh=38e4cd08b14034627ff7e84190726c57&oe=5B60B74A",
 //                  width: 40.0),
 //            ),
-            title: Text(story.title),
+            title: Text(item.title),
             subtitle: Text(subTitle),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Icon(Icons.thumb_up,
                 color: Theme.of(context).primaryColor,),
-                Text(story.score.toString()),
+                Text(item.score.toString()),
               ],
             ),
-          ),
+          onTap: () {
+              this._launchDetail(item);
+          },),
           Divider(
             height: 1.0,
           ),
@@ -106,26 +107,20 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   Future<Null> _getTopList() async {
-    this.setState(() {
-      this._isRefreshing = true;
-    });
-
     try {
       final api = HackerNewsProvider();
       final list = await api.getHotNews()
-          .then((ids) => ids.take(20)
+          .then((ids) => ids.take(50)
           .map ((id) async => await api.getItem(id)));
 
       List<HackerNewsItem> items = await Future.wait(list);
       print(items);
       setState(() {
         this._stories.addAll(items);
-        this._isRefreshing = false;
       });
       return null;
     } catch (e) {
       print(e);
-      this._isRefreshing = false;
       return null;
     }
   }
@@ -136,5 +131,25 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
       });
 
       return this._getTopList();
+  }
+
+
+  // Open URL
+
+  _launchDetail(HackerNewsItem item) async {
+    Navigator.push(
+      context,
+      new MaterialPageRoute(
+        builder: (_) => new WebviewScaffold(
+          url: item.url,
+          appBar: AppBar(
+            title: Text(item.title),
+          ),
+          withJavascript: true,
+          withLocalStorage: true,
+          withZoom: true,
+        ),
+      ),
+    );
   }
 }
