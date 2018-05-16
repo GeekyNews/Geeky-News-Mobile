@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import './screens/Home.dart';
 
 void main() => runApp(new App());
+
+String selectedUrl = "https://flutter.io";
 
 class App extends StatelessWidget {
   // This widget is the root of your application.
@@ -15,7 +18,9 @@ class App extends StatelessWidget {
           primaryColor: Colors.deepOrange,
           accentColor: Colors.orange
       ),
-      home: Home(),
+      routes: {
+        "/": (_) => HomeScreen(),
+      },
     );
   }
 }
