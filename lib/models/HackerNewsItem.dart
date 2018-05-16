@@ -19,9 +19,10 @@ class HackerNewsItem {
   final String url;
   final String title;
   final String body;
-  final String time;
+  final int time;
+  final int score;
   
-  HackerNewsItem({this.author, this.url, this.title, this.body, this.time});
+  HackerNewsItem({this.author, this.url, this.title, this.body, this.time, this.score});
 
   factory HackerNewsItem.fromJson(Map<String, dynamic> json) {
     return HackerNewsItem(
@@ -29,7 +30,8 @@ class HackerNewsItem {
       url: json['url'],
       title: json['title'],
       body: json['body'],
-//      time: json['time'],
+      time: json['time'],
+      score: json['score'],
     );
   }
 }

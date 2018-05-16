@@ -69,10 +69,22 @@ class HackerNewsProvider {
 
   void getBestNews() {
     var resquestString = "$baseUrl/beststories.json";
+
   }
 
-  void getHotNews() {
+  Future<List<int>> getHotNews() async {
     var resquestString = "$baseUrl/topstories.json";
+
+    final response = await http.get(resquestString);
+    final statusCode = response.statusCode;
+
+    if (statusCode < 200 || statusCode >= 300 || response.body == null) {
+//      throw new FetchDataException(
+      print("Error while getting stories [StatusCode:$statusCode]");
+      return null;
+    }
+    final List storiesList = json.decode(response.body);
+    return storiesList.cast<int>();
   }
 
   Future<HackerNewsItem> getItem(int id) async {
