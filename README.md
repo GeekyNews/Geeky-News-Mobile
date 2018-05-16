@@ -17,16 +17,22 @@ For help getting started with Flutter, view our online
 4. `cd Geeky-News-Mobile` .
 5. Run `flutter run` command.
 
-# Structure
+## Structure
 The main classes are under `lib` directory.
 
 ## Demo
 ![demo](https://raw.githubusercontent.com/GeekyNews/Geeky-News-Mobile/dev/assets/demo.gif)
 
+## Todos
+- [ ] Add Lastest, Best News tabs
+- [ ] Add test
+- [ ] Add theme
+- [ ] Add loading indicators
+- [ ] Update screenshot and assets
+
 ## Contributing
 
-This project is under development.
-
+This project is under early-staged development.
 
 ## License
 ```
@@ -44,4 +50,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-Made from Sai Gon with <3
+### Made from Sai Gon with :heart: && :coffee:
