@@ -11,11 +11,11 @@ class App extends StatelessWidget {
     return new MaterialApp(
       title: 'Geeky News',
       debugShowCheckedModeBanner: false,
-      theme: new ThemeData(
+      theme: ThemeData(
           primaryColor: Colors.deepOrange,
           accentColor: Colors.orange
       ),
-      home: new Home(),
+      home: Home(),
     );
   }
 }
