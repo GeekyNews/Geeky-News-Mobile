@@ -21,7 +21,7 @@ For help getting started with Flutter, view our online
 The main classes are under `lib` directory.
 
 ## Demo
-![demo](https://github.com/GeekyNews/Geeky-News-Mobile/assets/demo.gif)
+![demo](https://raw.githubusercontent.com/GeekyNews/Geeky-News-Mobile/dev/assets/demo.gif)
 
 ## Contributing
 
