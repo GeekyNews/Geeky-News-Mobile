@@ -86,10 +86,17 @@
             </list>
           </value>
         </entry>
+        <entry key="firebase_analytics">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/firebase_analytics-0.3.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../Flutter/sdk/flutter/packages/flutter/lib" />
+              <option value="$PROJECT_DIR$/../../Flutter/flutter/packages/flutter/lib" />
             </list>
           </value>
         </entry>
@@ -103,7 +110,7 @@
         <entry key="flutter_test">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../Flutter/sdk/flutter/packages/flutter_test/lib" />
+              <option value="$PROJECT_DIR$/../../Flutter/flutter/packages/flutter_test/lib" />
             </list>
           </value>
         </entry>
@@ -327,7 +334,7 @@
         <entry key="sky_engine">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../Flutter/sdk/flutter/bin/cache/pkg/sky_engine/lib" />
+              <option value="$PROJECT_DIR$/../../Flutter/flutter/bin/cache/pkg/sky_engine/lib" />
             </list>
           </value>
         </entry>
@@ -390,7 +397,7 @@
         <entry key="timeago">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/timeago-1.2.4/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/timeago-1.2.5/lib" />
             </list>
           </value>
         </entry>
@@ -451,6 +458,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/crypto-2.0.2+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/csslib-0.14.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-0.1.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/firebase_analytics-0.3.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_stream_friends-0.5.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_webview_plugin-0.1.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/font_awesome_flutter-6.0.0/lib" />
@@ -491,16 +499,16 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/test-0.12.34/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/timeago-1.2.4/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/timeago-1.2.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/typed_data-1.1.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/utf-0.9.0+4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/vector_math-2.0.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/watcher-0.9.7+7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-1.0.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/yaml-2.1.13/lib" />
-      <root url="file://$PROJECT_DIR$/../../Flutter/sdk/flutter/bin/cache/pkg/sky_engine/lib" />
-      <root url="file://$PROJECT_DIR$/../../Flutter/sdk/flutter/packages/flutter/lib" />
-      <root url="file://$PROJECT_DIR$/../../Flutter/sdk/flutter/packages/flutter_test/lib" />
+      <root url="file://$PROJECT_DIR$/../../Flutter/flutter/bin/cache/pkg/sky_engine/lib" />
+      <root url="file://$PROJECT_DIR$/../../Flutter/flutter/packages/flutter/lib" />
+      <root url="file://$PROJECT_DIR$/../../Flutter/flutter/packages/flutter_test/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
