@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geeky_news_mobile/services/HackerNewsProvider.dart';
 import 'package:geeky_news_mobile/models/HackerNewsItem.dart';
-import 'package:timeago/timeago.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,11 +12,13 @@ class HomeScreen extends StatefulWidget {
   State<StatefulWidget> createState() => HomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
   var _stories = List<HackerNewsItem>();
 
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      new GlobalKey<RefreshIndicatorState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -43,22 +45,18 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
                 tooltip: 'Refresh',
                 onPressed: () {
                   _refreshIndicatorKey.currentState.show();
-                }
-            ),
+                }),
           ],
         ),
-        body:
-        RefreshIndicator(
-            key: _refreshIndicatorKey,
-            onRefresh: _handleRefresh,
-            child: _buildList(),
-
-        )
-    );
+        body: RefreshIndicator(
+          key: _refreshIndicatorKey,
+          onRefresh: _handleRefresh,
+          child: _buildList(),
+        ));
   }
 
   Widget _buildList() {
-    return  ListView.builder(
+    return ListView.builder(
       itemCount: _stories.length,
       itemBuilder: (context, index) {
         final item = _stories[index];
@@ -73,8 +71,7 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
 
   Widget _buildRow(HackerNewsItem item) {
     DateTime date = new DateTime.fromMillisecondsSinceEpoch(item.time * 1000);
-    final subTitle = item.author + " - " + timeAgo(date) ;
-
+    final subTitle = item.author + " - " + timeago.format(date);
 
     return Container(
       child: Column(
@@ -90,14 +87,17 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Icon(Icons.thumb_up,
-                color: Theme.of(context).primaryColor,),
+                Icon(
+                  Icons.thumb_up,
+                  color: Theme.of(context).primaryColor,
+                ),
                 Text(item.score.toString()),
               ],
             ),
-          onTap: () {
+            onTap: () {
               this._launchDetail(item);
-          },),
+            },
+          ),
           Divider(
             height: 1.0,
           ),
@@ -109,9 +109,9 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
   Future<Null> _getTopList() async {
     try {
       final api = HackerNewsProvider();
-      final list = await api.getHotNews()
-          .then((ids) => ids.take(50)
-          .map ((id) async => await api.getItem(id)));
+      final list = await api
+          .getHotNews()
+          .then((ids) => ids.take(50).map((id) async => await api.getItem(id)));
 
       List<HackerNewsItem> items = await Future.wait(list);
       print(items);
@@ -126,13 +126,12 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
   }
 
   Future<Null> _handleRefresh() async {
-      this.setState(() {
-        this._stories.clear();
-      });
+    this.setState(() {
+      this._stories.clear();
+    });
 
-      return this._getTopList();
+    return this._getTopList();
   }
-
 
   // Open URL
 
@@ -141,14 +140,14 @@ class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMi
       context,
       new MaterialPageRoute(
         builder: (_) => new WebviewScaffold(
-          url: item.url,
-          appBar: AppBar(
-            title: Text(item.title),
-          ),
-          withJavascript: true,
-          withLocalStorage: true,
-          withZoom: true,
-        ),
+              url: item.url,
+              appBar: AppBar(
+                title: Text(item.title),
+              ),
+              withJavascript: true,
+              withLocalStorage: true,
+              withZoom: true,
+            ),
       ),
     );
   }
